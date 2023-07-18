@@ -46,3 +46,18 @@ The Sample application built here has the maven jar plugin, so in order to build
 
 $ mvn clean install
 
+# Continuous delivery 
+
+node {
+    def dockerImageTag = "devopsexample${env.BUILD_NUMBER}"
+    
+    stage('Deploy commands to deploy in Docker') {
+        sh "docker images"
+        sh "docker rm -f devopsexample"
+        sh "docker run --name devopsexample -d -p 2222:2222 ravindraghodi/springboot:latest"
+    }
+}
+
+
+
+
